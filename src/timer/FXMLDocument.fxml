@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" spacing="10" xmlns:fx="http://javafx.com/fxml/1" id="AnchorPane" prefHeight="200" prefWidth="600" fx:controller="timer.FXMLDocumentController"> 
+    <Label fx:id="timeLbl">0:00:00.000</Label>
+    <HBox alignment="CENTER" spacing="10" >
+        <Button fx:id="startBtn" onAction="#handleStart">Start</Button>
+        <Button fx:id="pauseBtn" onAction="#handlePause">Pause</Button>
+        <Button fx:id="resumeBtn" onAction="#handleResume">Resume</Button>
+        <Button fx:id="resetBtn" onAction="#handleReset">Reset</Button>
+    </HBox>
+    <stylesheets>
+        <URL value="@timer.css" />
+    </stylesheets>
+</VBox>
+

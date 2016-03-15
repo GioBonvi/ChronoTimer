@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package timer;
+package chrono;
 
+import java.io.IOException;
 import javafx.event.ActionEvent;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -16,8 +12,12 @@ import javafx.animation.Timeline;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import java.net.URL;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-public class FXMLDocumentController implements Initializable
+public class ChronoController implements Initializable
 {
     Instant startTime;
     java.time.Duration pausedAfter;
@@ -28,6 +28,7 @@ public class FXMLDocumentController implements Initializable
     @FXML private Button pauseBtn;
     @FXML private Button resumeBtn;
     @FXML private Button resetBtn;
+    @FXML private Button timerBtn;
     
     // start button pressed.
     @FXML protected void handleStart(ActionEvent e)
@@ -71,7 +72,7 @@ public class FXMLDocumentController implements Initializable
         resetBtn.setDisable(false);
     }
     
-    // resume button pressed.
+    // reset button pressed.
     @FXML protected void handleReset(ActionEvent e)
     {
         // Stop the animation.
@@ -85,7 +86,19 @@ public class FXMLDocumentController implements Initializable
         resetBtn.setDisable(true);
     }
     
-    
+    // timer button pressed.
+    @FXML protected void handleTimer(ActionEvent e) throws IOException
+    {
+        Stage stage;
+        Parent root;
+        stage = (Stage) timerBtn.getScene().getWindow();
+        
+        root = FXMLLoader.load(getClass().getResource("/timer/Timer.fxml"));
+        
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -106,6 +119,4 @@ public class FXMLDocumentController implements Initializable
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
     }
-      
-    
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package timer;
+package chrono;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -16,9 +16,9 @@ public class Timer extends Application
     @Override
     public void start(Stage stage) throws Exception
     {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        Parent chrono = FXMLLoader.load(getClass().getResource("/chrono/Chrono.fxml"));
         
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(chrono);
         
         stage.setScene(scene);
         stage.setTitle("Timer");
@@ -30,6 +30,5 @@ public class Timer extends Application
      */
     public static void main(String[] args) {
         launch(args);
-    }
-    
+    }   
 }

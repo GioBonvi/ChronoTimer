@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="setTimer.SetTimerController">
+    <HBox alignment="CENTER" spacing="20">
+        <TextField promptText="Hours" fx:id="hField"/>
+        <TextField promptText="Minutes" fx:id="mField"/>
+        <TextField promptText="Seconds" fx:id="sField"/>
+    </HBox>
+    <HBox alignment="CENTER" spacing="50">
+        <Button fx:id="cancelBtn" text="Cancel" onAction="#handleCancel"/>
+        <Button fx:id="okBtn" text="OK" onAction="#handleOK"/>
+    </HBox>
+    <stylesheets>
+        <URL value="@settimer.css"/>
+    </stylesheets>
+</VBox>

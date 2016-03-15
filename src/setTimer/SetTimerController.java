@@ -11,16 +11,24 @@ import javafx.stage.Stage;
 
 public class SetTimerController implements Initializable {
     
-    public StringProperty h, m, s;
-    public boolean result = false;
+    public boolean success = false;
     
     @FXML TextField hField;
     @FXML TextField mField;
     @FXML TextField sField;
     
+    // cancel button pressed.
     @FXML protected void handleCancel(ActionEvent e)
     {
-        result = false;
+        success = false;
+        Stage stage = (Stage) hField.getScene().getWindow();
+        stage.close();
+    }
+    
+    // ok button pressed.
+    @FXML protected void handleOk(ActionEvent e)
+    {
+        success = true;
         Stage stage = (Stage) hField.getScene().getWindow();
         stage.close();
     }
@@ -30,9 +38,7 @@ public class SetTimerController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        h.bind(hField.textProperty());
-        m.bind(mField.textProperty());
-        s.bind(sField.textProperty());
+        
     }    
     
 }

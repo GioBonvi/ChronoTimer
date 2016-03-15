@@ -5,7 +5,6 @@ import javafx.event.ActionEvent;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import java.time.Instant;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -15,6 +14,8 @@ import java.net.URL;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class TimerController implements Initializable
@@ -69,8 +70,25 @@ public class TimerController implements Initializable
     }
     
     // set button pressed.
-    @FXML protected void handleSet(ActionEvent e)
+    @FXML protected void handleSet(ActionEvent e) throws IOException
     {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/setTimer/SetTimer.fxml"));
+        
+        Stage dialogStage = new Stage();
+        dialogStage.setTitle("Set timer");
+        dialogStage.initModality(Modality.WINDOW_MODAL);
+        VBox layout = (VBox) loader.load();
+        Scene scene = new Scene(layout);
+        dialogStage.setScene(scene);
+
+        setTimer.SetTimerController controller = loader.getController();
+
+        // Show the dialog and wait until the user closes it
+        dialogStage.showAndWait();
+
+        System.out.println(controller.success);
+        
         
     }
     

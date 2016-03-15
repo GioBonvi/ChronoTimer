@@ -3,11 +3,13 @@
 <?import java.lang.*?>
 <?import java.net.*?>
 <?import java.util.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="setTimer.SetTimerController">
+<VBox alignment="CENTER" spacing="20" prefHeight="100" prefWidth="200.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="setTimer.SetTimerController">
+    <padding><Insets left="20" right="20" top="20" bottom="20" /></padding>
     <HBox alignment="CENTER" spacing="20">
         <TextField promptText="Hours" fx:id="hField"/>
         <TextField promptText="Minutes" fx:id="mField"/>
@@ -15,7 +17,7 @@
     </HBox>
     <HBox alignment="CENTER" spacing="50">
         <Button fx:id="cancelBtn" text="Cancel" onAction="#handleCancel"/>
-        <Button fx:id="okBtn" text="OK" onAction="#handleOK"/>
+        <Button fx:id="okBtn" text="OK" onAction="#handleOk"/>
     </HBox>
     <stylesheets>
         <URL value="@settimer.css"/>

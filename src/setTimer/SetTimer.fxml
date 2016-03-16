@@ -8,16 +8,20 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" spacing="20" prefHeight="100" prefWidth="200.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="setTimer.SetTimerController">
+<VBox alignment="CENTER" spacing="20" prefHeight="100" prefWidth="250.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="setTimer.SetTimerController">
     <padding><Insets left="20" right="20" top="20" bottom="20" /></padding>
-    <HBox alignment="CENTER" spacing="20">
-        <TextField promptText="Hours" fx:id="hField"/>
-        <TextField promptText="Minutes" fx:id="mField"/>
-        <TextField promptText="Seconds" fx:id="sField"/>
-    </HBox>
+    <GridPane alignment="CENTER" vgap="5" hgap="10">
+        <padding><Insets left="5" right="5" top="5" bottom="5" /></padding>
+        <Label text="Hours" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <Label text="Minutes" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <Label text="Seconds" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+        <TextField fx:id="hField" text="0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <TextField fx:id="mField" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <TextField fx:id="sField" text="0" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+    </GridPane>
     <HBox alignment="CENTER" spacing="50">
-        <Button fx:id="cancelBtn" text="Cancel" onAction="#handleCancel"/>
-        <Button fx:id="okBtn" text="OK" onAction="#handleOk"/>
+        <Button fx:id="cancelBtn" text="Cancel" onAction="#handleCancel" cancelButton="true" />
+        <Button fx:id="okBtn" text="OK" onAction="#handleOk" defaultButton="true" />
     </HBox>
     <stylesheets>
         <URL value="@settimer.css"/>

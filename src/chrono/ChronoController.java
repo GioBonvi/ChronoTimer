@@ -78,7 +78,7 @@ public class ChronoController implements Initializable
         // Stop the animation.
         timeline.stop();
         // Reset the scene.
-        timeLbl.setText("0:00:00.000");
+        timeLbl.setText("00:00:00.000");
 
         startBtn.setDisable(false);
         resumeBtn.setDisable(true);
@@ -114,9 +114,11 @@ public class ChronoController implements Initializable
             s = s % 60;
             m = m % 60;
             // Text is displayed with leading zeroes.
-            String newText = String.format("%d:%02d:%02d.%03d", h, m, s, ms);
+            String newText = String.format("%02d:%02d:%02d.%03d", h, m, s, ms);
             timeLbl.setText(newText);
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
+        
+        resetBtn.fire();
     }
 }

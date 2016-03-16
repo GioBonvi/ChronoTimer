@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.*?>
 
 <VBox alignment="CENTER" spacing="10" xmlns:fx="http://javafx.com/fxml/1" id="AnchorPane" prefHeight="200" prefWidth="600" fx:controller="timer.TimerController"> 
-    <Label fx:id="timeLbl">0:01:00.000</Label>
+    <Label fx:id="timeLbl">00:01:00.000</Label>
     <HBox alignment="CENTER" spacing="10" >
         <Button fx:id="startBtn" onAction="#handleStart">Start</Button>
         <Button fx:id="pauseBtn" onAction="#handlePause">Pause</Button>

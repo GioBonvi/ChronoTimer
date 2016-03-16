@@ -1,5 +1,7 @@
 package timer;
 
+import javax.sound.sampled.*;
+import java.io.File;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import java.util.ResourceBundle;
@@ -11,6 +13,8 @@ import javafx.animation.Timeline;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import java.net.URL;
+import java.time.Duration;
+import java.time.Instant;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -20,7 +24,9 @@ import javafx.stage.Stage;
 
 public class TimerController implements Initializable
 {
-    int timerDigits[] = {0, 0, 0, 0, 0, 0};
+    Duration duration = Duration.ofMinutes(1);
+    Instant endTime;
+    Instant pausedAt;
     Timeline timeline;
     
     @FXML private Label timeLbl;
@@ -34,16 +40,21 @@ public class TimerController implements Initializable
     // start button pressed.
     @FXML protected void handleStart(ActionEvent e)
     {
-
+        endTime = Instant.now().plus(duration);
+        timeline.play();
+        
         startBtn.setDisable(true);
         resumeBtn.setDisable(true);
         pauseBtn.setDisable(false);
+        setBtn.setDisable(true);
         resetBtn.setDisable(false);
     }
     
     // pause button pressed.
     @FXML protected void handlePause(ActionEvent e)
     {
+        timeline.pause();
+        pausedAt = Instant.now();
         
         startBtn.setDisable(true);
         resumeBtn.setDisable(false);
@@ -54,18 +65,24 @@ public class TimerController implements Initializable
     // resume button pressed.
     @FXML protected void handleResume(ActionEvent e)
     {
+        timeline.play();
+        endTime = endTime.plus(Duration.between(pausedAt, Instant.now()));
         startBtn.setDisable(true);
         resumeBtn.setDisable(true);
         pauseBtn.setDisable(false);
         resetBtn.setDisable(false);
     }
     
-    // resume button pressed.
+    // reset button pressed.
     @FXML protected void handleReset(ActionEvent e)
     {
+        timeline.stop();
+        showTime(true);
+        
         startBtn.setDisable(false);
         resumeBtn.setDisable(true);
         pauseBtn.setDisable(true);
+        setBtn.setDisable(false);
         resetBtn.setDisable(true);
     }
     
@@ -87,9 +104,15 @@ public class TimerController implements Initializable
         // Show the dialog and wait until the user closes it
         dialogStage.showAndWait();
 
-        System.out.println(controller.success);
-        
-        
+        // If the dialog was successful update the timer.
+        if(controller.success)
+        {
+            long time = Integer.parseInt(controller.h.get()) * 3600 +
+                        Integer.parseInt(controller.m.get()) * 60 +
+                        Integer.parseInt(controller.s.get());
+            duration = Duration.ofSeconds(time);
+            showTime(true);
+        }
     }
     
     // chrono button pressed.
@@ -106,12 +129,71 @@ public class TimerController implements Initializable
         stage.show();
     }
     
+    private void showTime()
+    {
+        showTime(false);
+    }
+    
+    private void showTime(boolean showDuration)
+    {
+        // Time remaining to the end of the timer.
+        long remaining; // = (d.equals(Duration.ZERO)) ? java.time.Duration.between(Instant.now(), endTime).getSeconds() : d.getSeconds();
+        if (showDuration)
+        {
+            remaining = duration.getSeconds();
+        }
+        else
+        {
+            remaining = Duration.between(Instant.now(), endTime).getSeconds();
+        }
+        remaining = remaining < 0 ? 0 : remaining;
+        long s = remaining;
+        long m = s / 60;
+        long h = m / 60;
+        s = s % 60;
+        m = m % 60;
+        // Text is displayed with leading zeroes.
+        String newText = String.format("%02d:%02d:%02d", h, m, s);
+        timeLbl.setText(newText);
+        if (remaining == 0)
+        {
+                timeline.stop();
+                startBtn.setDisable(true);
+                resumeBtn.setDisable(true);
+                pauseBtn.setDisable(true);
+                setBtn.setDisable(true);
+                resetBtn.setDisable(false);
+                
+                File musicFile = new File("src/timer/timer_end.wav");
+                AudioInputStream stream;
+                AudioFormat format;
+                DataLine.Info info;
+                Clip clip;
+                
+            try
+            {
+                stream = AudioSystem.getAudioInputStream(musicFile);
+                format = stream.getFormat();
+                info = new DataLine.Info(Clip.class, format);
+                clip = (Clip) AudioSystem.getLine(info);
+                clip.open(stream);
+                clip.loop(2); // Repeat 3 times (Yes: it's base 0...).
+            }
+            catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex)
+            {
+                
+            }
+        }
+    }
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // timeline fires an event every 1 millisecond.
-        timeline = new Timeline(new KeyFrame(javafx.util.Duration.millis(1), event -> {
-           
+        timeline = new Timeline(new KeyFrame(javafx.util.Duration.seconds(1), event -> {
+            showTime();            
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
-    }   
+        
+        resetBtn.fire();
+    }
 }

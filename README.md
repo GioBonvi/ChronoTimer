@@ -10,7 +10,7 @@ The stopwatch can be started, stopped, paused and resumed. The precision of the 
 
 The timer is a simple countdown which can be set up to 99:59:59 with a precision of 1 second. It can be set, started, stopped, paused and resumed.
 
-## Licence
+## License
 
 This project is released under the MIT licence.
 

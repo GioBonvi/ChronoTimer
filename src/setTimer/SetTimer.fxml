@@ -24,6 +24,6 @@
         <Button fx:id="okBtn" text="OK" onAction="#handleOk" defaultButton="true" />
     </HBox>
     <stylesheets>
-        <URL value="@settimer.css"/>
+        <URL value="@/setTimer/settimer.css" />
     </stylesheets>
 </VBox>

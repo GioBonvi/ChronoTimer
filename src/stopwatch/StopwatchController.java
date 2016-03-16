@@ -1,4 +1,4 @@
-package chrono;
+package stopwatch;
 
 import java.io.IOException;
 import javafx.event.ActionEvent;
@@ -17,7 +17,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class ChronoController implements Initializable
+public class StopwatchController implements Initializable
 {
     Instant startTime;
     java.time.Duration pausedAfter;
@@ -93,10 +93,11 @@ public class ChronoController implements Initializable
         Parent root;
         stage = (Stage) timerBtn.getScene().getWindow();
         
-        root = FXMLLoader.load(getClass().getResource("/timer/Timer.fxml"));
+        root = FXMLLoader.load(this.getClass().getResource("/timer/Timer.fxml"));
         
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        stage.setTitle("Timer");
         stage.show();
     }
     

@@ -19,6 +19,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -104,6 +106,7 @@ public class TimerController implements Initializable
         // Show the dialog and wait until the user closes it
         dialogStage.showAndWait();
 
+        
         // If the dialog was successful update the timer.
         if(controller.success)
         {
@@ -122,10 +125,11 @@ public class TimerController implements Initializable
         Parent root;
         stage = (Stage) chronoBtn.getScene().getWindow();
         
-        root = FXMLLoader.load(getClass().getResource("/chrono/Chrono.fxml"));
+        root = FXMLLoader.load(this.getClass().getResource("/stopwatch/Stopwatch.fxml"));
         
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        stage.setTitle("Stopwatch");
         stage.show();
     }
     
@@ -137,7 +141,7 @@ public class TimerController implements Initializable
     private void showTime(boolean showDuration)
     {
         // Time remaining to the end of the timer.
-        long remaining; // = (d.equals(Duration.ZERO)) ? java.time.Duration.between(Instant.now(), endTime).getSeconds() : d.getSeconds();
+        long remaining;
         if (showDuration)
         {
             remaining = duration.getSeconds();
@@ -164,25 +168,9 @@ public class TimerController implements Initializable
                 setBtn.setDisable(true);
                 resetBtn.setDisable(false);
                 
-                File musicFile = new File("src/timer/timer_end.wav");
-                AudioInputStream stream;
-                AudioFormat format;
-                DataLine.Info info;
-                Clip clip;
-                
-            try
-            {
-                stream = AudioSystem.getAudioInputStream(musicFile);
-                format = stream.getFormat();
-                info = new DataLine.Info(Clip.class, format);
-                clip = (Clip) AudioSystem.getLine(info);
-                clip.open(stream);
-                clip.loop(2); // Repeat 3 times (Yes: it's base 0...).
-            }
-            catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex)
-            {
-                
-            }
+                Media media = new Media(this.getClass().getResource("/timer/timer_end.wav").toString());
+                MediaPlayer player = new MediaPlayer(media);
+                player.play();
         }
     }
     

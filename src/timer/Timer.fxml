@@ -19,6 +19,6 @@
         <Button fx:id="chronoBtn" onAction="#handleChrono">Chrono</Button>
     </HBox>
     <stylesheets>
-        <URL value="@/timer/Timer.css" />
+        <URL value="@/timer/timer.css" />
     </stylesheets>
 </VBox>
